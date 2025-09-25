@@ -1,0 +1,43 @@
+
+x-app: &beacon-app
+  build:
+    context: ..
+    dockerfile: deploy/Dockerfile
+  volumes:
+    - ../src:/app
+  restart: unless-stopped
+  env_file:
+    - .env
+  working_dir: /app
+
+services:
+  web:
+    <<: *beacon-app
+    container_name: beacon_web
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+      - tailwind
+
+  tailwind:
+    <<: *beacon-app
+    container_name: beacon_tailwind
+    command: >
+      sh -c "python bloom/manage.py tailwind install &&
+             python bloom/manage.py tailwind start"
+    tty: true  # required to keep Tailwind watching files
+
+  db:
+    image: postgres:14
+    restart: always
+    container_name: beacon_db
+    env_file:
+      - .env
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
