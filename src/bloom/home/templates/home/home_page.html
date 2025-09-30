@@ -1,6 +1,16 @@
 {% extends "base.html" %}
-{% load static %}
+{% load wagtailcore_tags %}
+
 
 {% block content %}
-Welcome
+
+
+{% for block in page.body %}
+    {% if block.block_type == 'html' %}
+        {{ block.value|safe }}
+    {% endif %}
+{% endfor %}
+
+
 {% endblock %}
+

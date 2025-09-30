@@ -1,5 +1,5 @@
 from django.urls import reverse
-from home.models import HomePage
+from bloom.home.models.home import HomePage
 
 from wagtail.models import Page
 from wagtail.test.utils import WagtailPageTestCase
