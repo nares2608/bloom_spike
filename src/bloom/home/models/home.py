@@ -8,7 +8,7 @@ from django import forms
 
 
 class HomePage(Page):
-    title_home = models.CharField(max_length=255,default='')
+    title_home = models.CharField(max_length=255,default='',blank=True)
     body = StreamField([
         ('html', RawHTMLBlock()),
         ], blank=True)

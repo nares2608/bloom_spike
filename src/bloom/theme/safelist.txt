@@ -1,0 +1,8 @@
+btn btn-accent
+btn btn-error
+btn btn-info
+btn btn-neutral
+btn btn-primary
+btn btn-secondary
+btn btn-success
+btn btn-warning
