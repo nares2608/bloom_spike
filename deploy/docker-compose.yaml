@@ -24,9 +24,13 @@ services:
     <<: *beacon-app
     container_name: beacon_tailwind
     command: >
-      sh -c "python bloom/manage.py tailwind install &&
-             python bloom/manage.py tailwind start"
-    tty: true  # required to keep Tailwind watching files
+      sh -c "
+        cd bloom/theme/static_src &&
+        npm uninstall daisyui --save --force || true &&
+        python ../../manage.py tailwind install &&
+        python ../../manage.py tailwind start
+      "
+    tty: true  
 
   db:
     image: postgres:14
